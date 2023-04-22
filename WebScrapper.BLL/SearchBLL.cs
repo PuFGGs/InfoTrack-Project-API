@@ -11,7 +11,7 @@ namespace WebScrapper.BLL
         public readonly List<SearchEngine> _searchEngines = new()
         {
             new() { Id = 0, Label = "Google Chrome", Url = "https://www.google.co.uk/search?num=100&q=", Regex = new Regex("<div class=\"MjjYud\">(.+?)</div>") },
-            new() { Id = 1, Label = "Bing", Url = "https://www.bing.com/search?&count=100&q=", Regex = new Regex("<li class=\"b_algo(.+?)</li>") },
+            new() { Id = 1, Label = "Bing", Url = "https://www.bing.com/search?count=100&cc=gb&q=", Regex = new Regex("<li class=\"b_algo(.+?)</li>") },
         };
 
         public SearchBLL(ISearchDL searchDL)
