@@ -12,6 +12,6 @@ namespace Models
         public string? SearchPhrase { get; set; }
         public int? Impressions { get; set; }
         public int? Count  { get; set; }
-        public double? Avarage  { get; set; }
+        public double? Average  { get; set; }
     }
 }

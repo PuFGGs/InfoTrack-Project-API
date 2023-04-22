@@ -7,19 +7,19 @@ namespace WebScrapper.BLL
 {
     public class SearchBLL : ISearchBLL
     {
-        ISearchDL _seachDL;
+        ISearchDL _searchDL;
         public readonly List<SearchEngine> _searchEngines = new()
         {
             new() { Id = 0, Label = "Google Chrome", Url = "https://www.google.co.uk/search?num=100&q=", Regex = new Regex("<div class=\"MjjYud\">(.+?)</div>") },
             new() { Id = 1, Label = "Bing", Url = "https://www.bing.com/search?&count=100&q=", Regex = new Regex("<li class=\"b_algo(.+?)</li>") },
         };
 
-        public SearchBLL(ISearchDL seachDL)
+        public SearchBLL(ISearchDL searchDL)
         {
-            _seachDL = seachDL;
+            _searchDL = searchDL;
         }
 
-        public Task<List<Search>> GetHistory(int count) => _seachDL.GetHistory(count);
+        public Task<List<Search>> GetHistory(int count) => _searchDL.GetHistory(count);
 
         public async Task<Search> Search(string url, string searchPhrase, int searchEngineId)
         {
@@ -43,7 +43,7 @@ namespace WebScrapper.BLL
                 Impressions = results.Count()
             };
 
-            await _seachDL.Search(searchObject);
+            await _searchDL.Search(searchObject);
 
             return searchObject;
         }
@@ -77,7 +77,7 @@ namespace WebScrapper.BLL
 
         public async Task<List<ChartData>> GetChartData()
         {
-            var result = await _seachDL.GetHistory(100);
+            var result = await _searchDL.GetHistory(100);
             var response = new List<ChartData>();
 
             if (result.Count() == 0)
@@ -104,7 +104,7 @@ namespace WebScrapper.BLL
 
                 item.ForEach(x => data.Impressions += x.Impressions);
 
-                data.Avarage = data.Impressions / data.Count;
+                data.Average = data.Impressions / data.Count;
 
                 response.Add(data);
             }
